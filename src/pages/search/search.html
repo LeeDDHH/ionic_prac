@@ -14,5 +14,9 @@
 
 
 <ion-content padding>
-
+    <div class="searchbar" ion-fixed>
+        <form action="" (keydown.enter)="getEvents($event)">
+            <ion-searchbar name="keywords" [(ngModel)]="keywords" placeholder="キーワード検索"></ion-searchbar>
+        </form>
+    </div>
 </ion-content>
