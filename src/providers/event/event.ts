@@ -16,6 +16,7 @@ export class EventProvider {
   }
 
     search(keywords: string[]): Observable<Object> {
+        
         let params = new HttpParams()
             .append('order', '2')
             .append('count', '100');
