@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { EventProvider } from '../../providers/event/event';
+//Bookmarkproviderの機能を使うため、組み込む
+import { BookmarkProvider } from '../../providers/bookmark/bookmark';
 
 /**
  * Generated class for the EventDetailPage page.
@@ -23,7 +25,11 @@ export class EventDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public eventProvider: EventProvider
+    public eventProvider: EventProvider,
+    //ブックマークされるとトーストメッセージを表示するため。
+    public toastCtrl: ToastController,
+    //ブックマークボタンが押された時の処理のため。
+    public bookmarkProvider: BookmarkProvider
   ) {
   }
 
@@ -36,5 +42,13 @@ export class EventDetailPage {
       });
     }
   }
-
+  doBookmark() {
+    this.bookmarkProvider.put(this.event).then(() => {
+      const toast = this.toastCtrl.create({
+        message: 'イベントをブックマークしました。',
+        duration: 1500
+      });
+      toast.present();
+    })
+  }
 }

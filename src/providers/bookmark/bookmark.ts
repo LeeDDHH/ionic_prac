@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+//ローカルストレージを用いるためにStorageを組み込む
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the BookmarkProvider provider.
@@ -9,9 +11,29 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class BookmarkProvider {
-
-  constructor(public http: HttpClient) {
-    console.log('Hello BookmarkProvider Provider');
+  //storageを生成する。
+  constructor(public storage: Storage) {}
+  
+  //ローカルストレージの取得(get)
+  get() {
+    return this.storage.get("bookmark.events").then(events => {
+      return event ? events : {};
+    });
   }
 
+  //ローカルストレージの追加/更新(put)
+  put(event: any) {
+    return this.get().then(events => {
+      event[event.event_id] = event;
+      return this.storage.set("bookmark.events", events);
+    })
+  }
+
+  //ローカルストレージの削除(delete)
+  delete(event: any) {
+    return this.get().then(events => {
+      delete events[event.event_id];
+      return this.storage.set("bookmark.events", events);
+    })
+  }
 }
