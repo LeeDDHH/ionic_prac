@@ -25,4 +25,11 @@ export class EventProvider {
         return this.http.get("/connpass/api", { params: params });
     }
 
+    get(eventId: string): Observable<Object> {
+
+      let params = new HttpParams()
+        .append('event_id', `${eventId}`);
+
+      return this.http.get("/connpass/api", { params: params });
+    }
 }
