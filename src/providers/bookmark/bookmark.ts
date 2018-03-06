@@ -17,14 +17,14 @@ export class BookmarkProvider {
   //ローカルストレージの取得(get)
   get() {
     return this.storage.get("bookmark.events").then(events => {
-      return event ? events : {};
+      return events ? events : {};
     });
   }
 
   //ローカルストレージの追加/更新(put)
   put(event: any) {
     return this.get().then(events => {
-      event[event.event_id] = event;
+      events[event.event_id] = event;
       return this.storage.set("bookmark.events", events);
     })
   }

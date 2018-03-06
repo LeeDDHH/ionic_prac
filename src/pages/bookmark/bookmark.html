@@ -14,5 +14,24 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <!--ion-item-slidingを用いて、右スライドでブックマーク削除機能をつける-->
+    <!--ion-item-optionsでどちらにスライドさせるかを決めるside="right",side="left"-->
+    <ion-item-sliding #itemSliding *ngFor="let event of events">
+      <button ion-item (click)="openEvent(event)">
+        <h2>{{event.title}}</h2>
+        <h3>{{event.catch}}</h3>
+        <h4>開催場所:</h4>
+        <p>{{event.address}} {{event.place}}</p>
+        <h4>イベント日時:</h4>
+        <p>{{event.started_at}}~{{event.ended_at}}</p>
+      </button>
+      <ion-item-options side="right">
+        <button ion-button color="danger" icon-start (click)="doDelete(event, itemSliding)">
+          <ion-icon name="trash"></ion-icon>
+          削除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
