@@ -17,6 +17,7 @@ import { EventProvider } from '../../providers/event/event';
 export class SearchPage {
 
     keywords: string = "";
+    //検索結果のイベントを保持する、eventsプロパティを追加
     events: any[] = [];
     
   constructor(
@@ -54,5 +55,11 @@ export class SearchPage {
         loader.dismiss();
         })
     }
-
+    //イベント検索画面のリストをクリック時に、openEventメソッド経由でイベント詳細画面を呼び出す処理
+    openEvent(event) {
+      this.navCtrl.push('EventDetailPage', {
+        eventId: event.event_id,
+        event: event
+      });
+    }
 }
